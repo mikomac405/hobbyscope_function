@@ -28,9 +28,9 @@ def main(context):
             queries=[Query.equal('user_id',[user_id])],
         )
 
-        if len(answer['total']) == 0:
+        if answer['total'] == 0:
             raise ValueError(f"Answer not found for user {user_id}!")
-        elif len(answer['total']) > 1:
+        elif answer['total'] > 1:
             raise ValueError(f"Too much answers found for user {user_id}! Investigate database!")
 
         answer_np = answer['documents'][0]
