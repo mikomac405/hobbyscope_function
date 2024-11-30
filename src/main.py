@@ -1,5 +1,6 @@
 import appwrite
 from appwrite.client import Client
+from appwrite.exception import AppwriteException
 from appwrite.query import Query
 from appwrite.services.databases import Databases
 import os
@@ -31,7 +32,7 @@ def main(context):
             database_id=context.req.body["APPWRITE_DATABASE_ID"],
             collection_id=context.req.body["APPWRITE_HOBBIES_COLLECTION_ID"]
         )
-    except ValueError as err:
+    except AppwriteException as err:
         return context.res.json({"ok": False, "error": err.message}, 400)
 
 
