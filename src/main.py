@@ -33,23 +33,38 @@ def main(context):
         elif answer['total'] > 1:
             raise ValueError(f"Too much answers found for user {user_id}! Investigate database!")
 
-        answer_np = answer['documents'][0]
 
         hobbies_res = databases.list_documents(
             database_id=os.environ["APPWRITE_DATABASE_ID"],
             collection_id=os.environ["APPWRITE_HOBBIES_COLLECTION_ID"]
         )
 
-        for hobbies in hobbies_res:
-            pass
+        hobbies_res = hobbies_res["documents"]
 
+        user = []
+        for key in keys:
+            user.append(answer['documents'][0][key])
+
+        hobbies = {}
+        for hobby in hobbies_res:
+            hobby_val = []
+
+            for key in keys:
+                if answers[key] is None:
+                    hobby_val.append(0.5)
+                if answers[key] is True:
+                    hobby_val.append(1)
+                elif answers[key] is False:
+                    hobby_val.append(0)
+
+            hobbies[hobby['name']] = hobby_val
 
     except AppwriteException as err:
         return context.res.json({"ok": False, "error": err.message}, 400)
 
     res = {
-        "answers": answer['documents'][0],
-        "hobbies": hobbies_res['documents'][0]
+        "answers": user,
+        "hobbies": hobbies
     }
 
     context.log(res)
@@ -58,7 +73,14 @@ def main(context):
         res
     )
 
-# import numpy as np
+
+import numpy as np
+
+keys = ["team_required","sport","intelectual","practical","creativity","high_budget","artistic","nature","home","much_time_on_hobby","adrenaline"]
+
+answers={"user_id":"674b22e3925a836c1bbc","team_required":0,"sport":0.25,"intelectual":1,"practical":0.25,"creativity":0.75,"high_budget":0,"artistic":1,"nature":0.5,"home":1,"much_time_on_hobby":1,"adrenaline":0}
+hobbies=[{"team_required":True,"sport":True,"intelectual":None,"practical":None,"creativity":None,"high_budget":None,"artistic":False,"nature":True,"home":False,"much_time_on_hobby":None,"adrenaline":True}]
+
 
 
 # Example hobby data
