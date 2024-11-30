@@ -59,12 +59,25 @@ def main(context):
 
             hobbies[hobby['name']] = hobby_val
 
+        # Calculate Manhattan distance for each hobby
+        scores = {}
+        for hobby, params in hobbies.items():
+            distance = sum(abs(u - p) for u, p in zip(user, params))
+            scores[hobby] = distance
+
+        # Sort hobbies by distance (ascending order)
+        sorted_hobbies = sorted(scores.items(), key=lambda x: x[1])
+
+        # Output ranked hobbies
+        for hobby, score in sorted_hobbies:
+            context.log(f"{hobby}: {score:.2f}")
+
+
     except AppwriteException as err:
         return context.res.json({"ok": False, "error": err.message}, 400)
 
     res = {
-        "answers": user,
-        "hobbies": hobbies
+        "hobbies": sorted_hobbies[:10]
     }
 
     context.log(res)
