@@ -65,6 +65,7 @@ def main(context):
 
 # import numpy as np
 
+
 # Example hobby data
 # hobbies = {
 #     "Chess": [0, 1, 1, 0, 0.5],
