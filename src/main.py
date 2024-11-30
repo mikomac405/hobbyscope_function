@@ -19,7 +19,7 @@ def main(context):
         answer = databases.list_documents(
             database_id=os.environ["APPWRITE_DATABASE_ID"],
             collection_id=os.environ["APPWRITE_ANSWERS_COLLECTION_ID"],
-            queries=[Query.equal('user_id',user_id)],
+            #queries=[Query.equal('user_id',user_id)],
         )
 
         #if len(answer) == 0:
