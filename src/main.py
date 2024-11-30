@@ -50,11 +50,11 @@ def main(context):
             hobby_val = []
 
             for key in keys:
-                if answers[key] is None:
+                if hobby[key] is None:
                     hobby_val.append(0.5)
-                if answers[key] is True:
+                if hobby[key] is True:
                     hobby_val.append(1)
-                elif answers[key] is False:
+                elif hobby[key] is False:
                     hobby_val.append(0)
 
             hobbies[hobby['name']] = hobby_val
