@@ -39,6 +39,7 @@ def main(context):
         )
 
         for hobbies in hobbies_res:
+            pass
 
 
     except AppwriteException as err:
