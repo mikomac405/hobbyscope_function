@@ -1,4 +1,3 @@
-import appwrite
 from appwrite.client import Client
 from appwrite.exception import AppwriteException
 from appwrite.query import Query
@@ -18,8 +17,8 @@ def main(context):
     try:
         user_id = context.req.body
         answer = databases.list_documents(
-            database_id=context.req.body["APPWRITE_DATABASE_ID"],
-            collection_id=context.req.body["APPWRITE_ANSWERS_COLLECTION_ID"],
+            database_id=os.environ["APPWRITE_DATABASE_ID"],
+            collection_id=os.environ["APPWRITE_ANSWERS_COLLECTION_ID"],
             queries=[Query.equal('user_id',[user_id])],
         )
 
@@ -29,8 +28,8 @@ def main(context):
             raise ValueError(f"Too much answers found for user {user_id}! Investigate database!")
 
         hobbies_res = databases.list_documents(
-            database_id=context.req.body["APPWRITE_DATABASE_ID"],
-            collection_id=context.req.body["APPWRITE_HOBBIES_COLLECTION_ID"]
+            database_id=os.environ["APPWRITE_DATABASE_ID"],
+            collection_id=os.environ["APPWRITE_HOBBIES_COLLECTION_ID"]
         )
     except AppwriteException as err:
         return context.res.json({"ok": False, "error": err.message}, 400)
