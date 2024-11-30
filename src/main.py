@@ -16,7 +16,7 @@ def main(context):
     databases = Databases(client)
 
     try:
-        user_id = dict(context.req.body)["user_id"]
+        user_id = context.req.body
         answer = databases.list_documents(
             database_id=context.req.body["APPWRITE_DATABASE_ID"],
             collection_id=context.req.body["APPWRITE_ANSWERS_COLLECTION_ID"],
