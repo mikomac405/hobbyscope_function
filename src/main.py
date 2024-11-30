@@ -28,15 +28,19 @@ def main(context):
             queries=[Query.equal('user_id',[user_id])],
         )
 
-        if len(answer) == 0:
+        if len(answer['count']) == 0:
             raise ValueError(f"Answer not found for user {user_id}!")
-        elif len(answer) > 1:
+        elif len(answer['count']) > 1:
             raise ValueError(f"Too much answers found for user {user_id}! Investigate database!")
 
         hobbies_res = databases.list_documents(
             database_id=os.environ["APPWRITE_DATABASE_ID"],
             collection_id=os.environ["APPWRITE_HOBBIES_COLLECTION_ID"]
         )
+
+        for hobbies in hobbies_res:
+
+
     except AppwriteException as err:
         return context.res.json({"ok": False, "error": err.message}, 400)
 
