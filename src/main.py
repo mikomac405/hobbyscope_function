@@ -2,29 +2,10 @@ import appwrite
 from appwrite.client import Client
 from appwrite.query import Query
 from appwrite.services.databases import Databases
-from appwrite.exception import AppwriteException
 import os
-
-def throw_if_missing(obj: object, keys: list[str]) -> None:
-    """
-    Throws an error if any of the keys are missing from the object
-
-    Parameters:
-        obj (object): Object to check
-        keys (list[str]): List of keys to check
-
-    Raises:
-        ValueError: If any keys are missing
-    """
-    missing = [key for key in keys if key not in obj or not obj[key]]
-    if missing:
-        raise ValueError(f"Missing required fields: {', '.join(missing)}")
 
 # This Appwrite function will be executed every time your function is triggered
 def main(context):
-
-    throw_if_missing(os.environ, ["APPWRITE_DATABASE_ID", "APPWRITE_ANSWERS_COLLECTION_ID", "APPWRITE_HOBBIES_COLLECTION_ID"])
-
     client = (
         Client()
         .set_endpoint(os.environ["APPWRITE_FUNCTION_API_ENDPOINT"])
@@ -34,7 +15,6 @@ def main(context):
     databases = Databases(client)
 
     try:
-        throw_if_missing(context.req.body, ["user_id"])
         user_id = context.req.body["user_id"]
         answer = databases.list_documents(
             database_id=context.req.body["APPWRITE_DATABASE_ID"],
