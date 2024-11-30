@@ -21,6 +21,7 @@ def main(context):
 
     try:
         context.log(context.req.body)
+        context.log(str(context.req.body))
         throw_if_missing(context.req.body, ["user_id"])
         user_id = context.req.body["user_id"]
         answer = databases.list_documents(
