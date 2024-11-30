@@ -63,7 +63,7 @@ def main(context):
         }
     )
 
-import numpy as np
+# import numpy as np
 
 # Example hobby data
 # hobbies = {

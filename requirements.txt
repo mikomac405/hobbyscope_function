@@ -1,2 +1,2 @@
-appwrite
-numpy
+appwrite==7.0.1
+numpy==2.1.3
