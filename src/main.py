@@ -20,7 +20,8 @@ def main(context):
     databases = Databases(client)
 
     try:
-        context.log(str(context.req))
+        context.log(str(context.req.headers))
+        context.log(str(context.req.body))
         throw_if_missing(context.req.body, ["user_id"])
         user_id = context.req.body["user_id"]
         answer = databases.list_documents(
