@@ -20,8 +20,6 @@ def main(context):
     databases = Databases(client)
 
     try:
-        context.log(str(context.req.headers))
-        context.log(str(context.req.body))
         throw_if_missing(context.req.body, ["user_id"])
         user_id = context.req.body["user_id"]
         answer = databases.list_documents(
@@ -42,15 +40,17 @@ def main(context):
     except AppwriteException as err:
         return context.res.json({"ok": False, "error": err.message}, 400)
 
-
-
-    return context.res.json(
-        {
+    res = {
             "user_id": user_id,
             "type_of_uid": str(type(user_id)),
             "answers": answer,
             "hobbies": hobbies_res
         }
+
+    context.log(res)
+
+    return context.res.json(
+        res
     )
 
 # import numpy as np
