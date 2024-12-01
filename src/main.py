@@ -37,6 +37,7 @@ def main(context):
         elif answer['total'] > 1:
             raise ValueError(f"Too much answers found for user {user_id}! Investigate database!")
 
+        context.log("id "+os.environ["APPWRITE_HOBBIES_COLLECTION_ID"])
 
         hobbies_res = databases.list_documents(
             database_id=os.environ["APPWRITE_DATABASE_ID"],
