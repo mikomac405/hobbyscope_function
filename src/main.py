@@ -4,6 +4,8 @@ from appwrite.query import Query
 from appwrite.services.databases import Databases
 import os
 
+keys = ["team_required","sport","intelectual","practical","creativity","high_budget","artistic","nature","home","much_time_on_hobby","adrenaline"]
+
 def throw_if_missing(obj: object, keys: list[str]) -> None:
     missing = [key for key in keys if key not in obj or not obj[key]]
     if missing:
@@ -85,36 +87,3 @@ def main(context):
     return context.res.json(
         res
     )
-
-
-import numpy as np
-
-keys = ["team_required","sport","intelectual","practical","creativity","high_budget","artistic","nature","home","much_time_on_hobby","adrenaline"]
-
-answers={"user_id":"674b22e3925a836c1bbc","team_required":0,"sport":0.25,"intelectual":1,"practical":0.25,"creativity":0.75,"high_budget":0,"artistic":1,"nature":0.5,"home":1,"much_time_on_hobby":1,"adrenaline":0}
-hobbies=[{"team_required":True,"sport":True,"intelectual":None,"practical":None,"creativity":None,"high_budget":None,"artistic":False,"nature":True,"home":False,"much_time_on_hobby":None,"adrenaline":True}]
-
-
-
-# Example hobby data
-# hobbies = {
-#     "Chess": [0, 1, 1, 0, 0.5],
-#     "Hiking": [1, 0, 0.5, 0.5, 1],
-#     "Painting": [0, 0, 0, 1, 1]
-# }
-#
-# # User preferences
-# user = [0.25, 1, 1, 0, 0.75]
-#
-# # Calculate Manhattan distance for each hobby
-# scores = {}
-# for hobby, params in hobbies.items():
-#     distance = sum(abs(u - p) for u, p in zip(user, params))
-#     scores[hobby] = distance
-#
-# # Sort hobbies by distance (ascending order)
-# sorted_hobbies = sorted(scores.items(), key=lambda x: x[1])
-#
-# # Output ranked hobbies
-# for hobby, score in sorted_hobbies:
-#     print(f"{hobby}: {score:.2f}")
