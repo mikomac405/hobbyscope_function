@@ -24,11 +24,13 @@ def main(context):
     try:
         throw_if_missing(context.req.body, ["user_id"])
         user_id = context.req.body["user_id"]
+        context.log(user_id)
         answer = databases.list_documents(
             database_id=os.environ["APPWRITE_DATABASE_ID"],
             collection_id=os.environ["APPWRITE_ANSWERS_COLLECTION_ID"],
             queries=[Query.equal('user_id',[user_id])],
         )
+        context.log(answer)
 
         if answer['total'] == 0:
             raise ValueError(f"Answer not found for user {user_id}!")
@@ -40,6 +42,7 @@ def main(context):
             database_id=os.environ["APPWRITE_DATABASE_ID"],
             collection_id=os.environ["APPWRITE_HOBBIES_COLLECTION_ID"]
         )
+        context.log(hobbies_res)
 
         hobbies_res = hobbies_res["documents"]
 
