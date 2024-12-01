@@ -3,6 +3,7 @@ from appwrite.exception import AppwriteException
 from appwrite.query import Query
 from appwrite.services.databases import Databases
 import os
+import json
 
 keys = ["team_required","sport","intelectual","practical","creativity","high_budget","artistic","nature","home","much_time_on_hobby","adrenaline"]
 
@@ -39,14 +40,18 @@ def main(context):
 
         context.log("id "+os.environ["APPWRITE_HOBBIES_COLLECTION_ID"])
 
-        hobbies_res = databases.list_documents(
-            database_id=os.environ["APPWRITE_DATABASE_ID"],
-            collection_id=os.environ["APPWRITE_HOBBIES_COLLECTION_ID"]
-        )
-        context.log(hobbies_res)
-
-        hobbies_res = hobbies_res["documents"]
-
+        # hobbies_res = databases.list_documents(
+        #     database_id=os.environ["APPWRITE_DATABASE_ID"],
+        #     collection_id=os.environ["APPWRITE_HOBBIES_COLLECTION_ID"]
+        # )
+        # context.log(hobbies_res)
+        # hobbies_res = hobbies_res["documents"]
+        
+        with open("hobbys.json", "r") as file:
+            hobbies_data = json.load(file)
+            hobbies_res = hobbies_data["hobbies"]["documents"]
+            context.log(hobbies_res)
+            
         user = []
         for key in keys:
             user.append(answer['documents'][0][key])
